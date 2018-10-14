@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_restful import Resource, Api
-# from information_provider import BME280InformationProvider
+from information_provider import BME280InformationProvider
 from information_provider import DummyInformationProvider
 from util import Config
 from database import DB
@@ -14,7 +14,7 @@ class TemperatureProvider(Resource):
         conf = Config("config.ini")
         database_conf = conf["database"]
         db = DB(database_conf["server"], database_conf["user"], database_conf["password"])
-        sensor = DummyInformationProvider(db)
+        sensor = BME280InformationProvider(db)
         return{
             "humidity": sensor["humidity"]["data"],
             "pressure": sensor["pressure"]["data"],
