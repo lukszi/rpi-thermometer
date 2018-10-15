@@ -11,7 +11,7 @@ class BME280InformationProvider(BaseInformationProvider):
     def __init__(self, database: DB):
         super(BME280InformationProvider, self).__init__(database)
         self.i2c = busio.I2C(board.SCL, board.SDA)
-        self.bme280 = Adafruit_BMP280_I2C(self.i2c)
+        self.bme280 = Adafruit_BMP280_I2C(self.i2c, address=0x76)
 
     def get_current_data(self, item):
         return {
