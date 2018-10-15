@@ -1,7 +1,7 @@
 from datetime import datetime
 import board
 import busio
-from adafruit_bmp280 import Adafruit_BME280_I2C
+from adafruit_bme280 import Adafruit_BME280_I2C
 
 from information_provider.BaseInformationProvider import BaseInformationProvider
 from database import DB
