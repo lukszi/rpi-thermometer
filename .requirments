@@ -1,0 +1,4 @@
+adafruit-circuitpython-bme280
+flask
+PyMySQL
+flask-restful
