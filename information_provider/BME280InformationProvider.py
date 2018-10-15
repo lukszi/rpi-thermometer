@@ -15,6 +15,6 @@ class BME280InformationProvider(BaseInformationProvider):
 
     def get_current_data(self, item):
         return {
-            "dataPoint": getattr(self.bme280, item),
+            "data": getattr(self.bme280, item),
             "timeStamp": datetime.utcnow(),
             "item": item}
