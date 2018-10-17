@@ -27,4 +27,4 @@ class UpdateDaemon(Thread):
             for data in data_list:
                 self.db.write_data_point(data["item"], data["data"], data["timeStamp"])
             self.db.disconnect()
-            sleep(self.polling_interval)
+            sleep(int(self.polling_interval))
