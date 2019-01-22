@@ -1,5 +1,6 @@
 from threading import Thread
 from time import sleep
+import sys
 
 from information_provider import BaseInformationProvider
 from database import DB
@@ -17,14 +18,34 @@ class UpdateDaemon(Thread):
     def run(self):
         print("running")
         while True:
-            self.db.connect()
+            try:
+                self.db.connect()
+            except:
+                print("Error while trying to connect to database", file=sys.stderr)
+                continue
+
             data_list = []
             # print("getting data")
-            for item in self.items:
-                # print("\t\t" + item)
-                data_list.append(self.information_provider.get_current_data(item))
-            # print("writing into db")
-            for data in data_list:
-                self.db.write_data_point(data["item"], data["data"], data["timeStamp"])
-            self.db.disconnect()
+            try:
+                for item in self.items:
+                    # print("\t\t" + item)
+                    data_list.append(self.information_provider.get_current_data(item))
+                # print("writing into db")
+            except:
+                print("Error while trying to get data", file=sys.stderr)
+                continue
+
+            try:
+                for data in data_list:
+                    self.db.write_data_point(data["item"], data["data"], data["timeStamp"])
+            except:
+                print("Error while writing into database", file=sys.stderr)
+                continue
+
+            try:
+                self.db.disconnect()
+            except:
+                print("Error while trying to disconnect from database", file=sys.stderr)
+                continue
+
             sleep(int(self.polling_interval))
