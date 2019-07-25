@@ -1,0 +1,8 @@
+[database]
+server =
+user =
+password =
+
+[daemon]
+polling_interval = 60
+item_list = ["temperature", "pressure", "humidity"]
